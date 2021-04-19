@@ -3,6 +3,10 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import * as dat from "dat.gui";
 
+// Texture Loader
+const loader = new THREE.TextureLoader();
+const star = loader.load("./star.png");
+
 // Debug
 const gui = new dat.GUI();
 
@@ -16,12 +20,12 @@ const scene = new THREE.Scene();
 const geometry = new THREE.TorusGeometry(0.7, 0.2, 16, 100);
 
 const particlesGeometry = new THREE.BufferGeometry();
-const particlesCnt = 5000;
+const particlesCnt = 50000;
 
 const posArrray = new Float32Array(particlesCnt * 3);
 
 for (let i = 0; i < particlesCnt * 3; i++) {
-  posArrray[i] = Math.random() - 0.5;
+  posArrray[i] = (Math.random() - 0.5) * 5;
 }
 
 particlesGeometry.setAttribute(
@@ -35,9 +39,17 @@ const material = new THREE.PointsMaterial({
   size: 0.005,
 });
 
+const particlesMaterial = new THREE.PointsMaterial({
+  size: 0.005,
+  map: star,
+  transparent: true,
+  // color: "white",
+  // blending: THREE.AdditiveBlending,
+});
+
 // Mesh
 const sphere = new THREE.Points(geometry, material);
-const particlesMesh = new THREE.Points(particlesGeometry, material);
+const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
 scene.add(sphere, particlesMesh);
 
 // Lights
