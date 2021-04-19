@@ -20,7 +20,7 @@ const scene = new THREE.Scene();
 const geometry = new THREE.TorusGeometry(0.7, 0.2, 16, 100);
 
 const particlesGeometry = new THREE.BufferGeometry();
-const particlesCnt = 50000;
+const particlesCnt = 50;
 
 const posArrray = new Float32Array(particlesCnt * 3);
 
