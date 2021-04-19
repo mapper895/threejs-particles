@@ -114,6 +114,17 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
  * Animate
  */
 
+// Mouse
+document.addEventListener("mousemove", animateParticles);
+
+let mouseX = 0;
+let mouseY = 0;
+
+function animateParticles(event) {
+  mouseX = event.clientX;
+  mouseY = event.clientY;
+}
+
 const clock = new THREE.Clock();
 
 const tick = () => {
@@ -121,6 +132,12 @@ const tick = () => {
 
   // Update objects
   sphere.rotation.y = 0.5 * elapsedTime;
+
+  particlesMesh.rotation.y = -0.1 * elapsedTime;
+  if (mouseX > 0) {
+    particlesMesh.rotation.x = -mouseY * (elapsedTime * 0.00008);
+    particlesMesh.rotation.y = -mouseX * (elapsedTime * 0.00008);
+  }
 
   // Update Orbital Controls
   // controls.update()
